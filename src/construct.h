@@ -7,12 +7,17 @@
 using std::shared_ptr;
 
 template <typename T> inline T construct(shared_ptr<Expression<T>> expr) {
-  switch (expr->mode) {
-    case Mode::Literal:
-      {
-        return expr, ExpressionConstructor();
-      }
-  }
+  struct ExpressionConstructor {
+    T result;
+
+    void visitLiteral(T const& value) {
+      result = value;
+    }
+  };
+
+  ExpressionConstructor expressionConstructor;
+  visitExpression(expr, expressionConstructor);
+  return expressionConstructor.result;
 }
 
 #endif //__JEST__CONSTRUCT_H__
