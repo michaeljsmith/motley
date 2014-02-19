@@ -37,13 +37,7 @@ template <typename T> Expression<T> variableReference(string const& name) {
   return Expression<T>(VariableReference<T>(name));
 }
 
-template <typename S> struct Template {
-};
-
-template <typename S> struct Instantiation {
-};
-
-template <typename T, typename F> inline void visitExpression(Expression<T> const& expression, F& visitor) {
+template <typename T, typename F> inline void visitExpression(Expression<T> const& expression, F visitor) {
   apply_visitor(visitor, expression.value);
 }
 
