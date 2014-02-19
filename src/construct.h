@@ -9,7 +9,7 @@
 
 using std::shared_ptr;
 
-template <typename T> inline T construct(Environment const& environment, Expression<T> expression) {
+template <typename T> inline T construct(Environment const& environment, Expression<T> const& expression) {
   return visitExpression(expression, adhoc<T>(
 
     [] (Literal<T> const& literal) {
