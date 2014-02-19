@@ -2,6 +2,10 @@
 #include "construct.h"
 
 #include <iostream>
+#include <memory>
+
+using std::shared_ptr;
+using std::make_shared;
 
 int main() {
   struct Application {
@@ -11,10 +15,10 @@ int main() {
   //auto app = construct(literal(Application()));
 
   Environment environment;
-  push(environment, "var", Application());
-  auto app = construct(environment, variableReference<Application>("var"));
+  push(environment, "var", make_shared<Application>());
+  auto app = construct(environment, variableReference<shared_ptr<Application>>("var"));
 
-  app.run();
+  app->run();
 
   return 0;
 }
