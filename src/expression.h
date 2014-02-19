@@ -37,8 +37,8 @@ template <typename T> Expression<T> variableReference(string const& name) {
   return Expression<T>(VariableReference<T>(name));
 }
 
-template <typename T, typename F> inline void visitExpression(Expression<T> const& expression, F visitor) {
-  apply_visitor(visitor, expression.value);
+template <typename T, typename F> inline auto visitExpression(Expression<T> const& expression, F visitor) -> decltype(apply_visitor(visitor, expression.value)) {
+  return apply_visitor(visitor, expression.value);
 }
 
 #endif// __JEST_TEMPLATE_H__

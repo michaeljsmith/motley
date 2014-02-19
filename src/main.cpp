@@ -25,7 +25,7 @@ int main() {
   //x();
   //std::cout << result << "\n";
 
-  auto f = adhoc(
+  auto f = adhoc<void>(
       []() {std::cout << "foo\n";},
       [](int x) {std::cout << "integer " << x << "\n";},
       [](double x) {std::cout << "double " << x << "\n";},

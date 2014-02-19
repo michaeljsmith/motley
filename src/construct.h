@@ -10,18 +10,15 @@
 using std::shared_ptr;
 
 template <typename T> inline T construct(Environment const& environment, Expression<T> expression) {
-  T result;
-  visitExpression(expression, adhoc(
+  return visitExpression(expression, adhoc<T>(
 
-    [&] (Literal<T> const& literal) {
-      result = literal.value;
+    [] (Literal<T> const& literal) {
+      return literal.value;
     },
 
-    [&] (VariableReference<T> const& variableReference) {
-      result = lookup<T>(environment, variableReference.name);
+    [&environment] (VariableReference<T> const& variableReference) {
+      return lookup<T>(environment, variableReference.name);
     }));
-
-  return result;
 }
 
 #endif //__JEST__CONSTRUCT_H__
